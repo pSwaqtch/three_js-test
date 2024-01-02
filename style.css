@@ -1,0 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+}
+
+body,html{
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
