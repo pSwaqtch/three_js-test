@@ -1,6 +1,6 @@
 import * as THREE from 'https://threejs.org/build/three.module.js';
 import "./style.css"
-import {OrbitControls} from "./public/OrbitControls.js"
+import {OrbitControls} from "./OrbitControls.js"
 
 //Scene
 const scene = new THREE.Scene()
@@ -8,7 +8,7 @@ const scene = new THREE.Scene()
 //sphere
 const geometry = new THREE.SphereGeometry(3,64,64)
 const material = new THREE.MeshStandardMaterial({
-  color: '#00ff83'
+  color: '#00ffff'
 })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
