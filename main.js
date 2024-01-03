@@ -1,4 +1,5 @@
 import * as THREE from "https://threejs.org/build/three.module.js"
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
 
 //Scene
 const scene = new THREE.Scene()
@@ -33,6 +34,14 @@ const renderer = new THREE.WebGLRenderer({canvas})
 renderer.setSize(sizes.width,sizes.height)
 renderer.setPixelRatio(2)
 renderer.render(scene,camera)
+
+// controls
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.enablePan = false;
+controls.enableZoom = false;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 1
 
 // Resize event listener
 window.addEventListener("resize", () => {
