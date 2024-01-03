@@ -1,5 +1,5 @@
 import * as THREE from "https://threejs.org/build/three.module.js";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { OrbitControls } from "https://cdn.skypack.dev/three@0.120.0/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // Scene
@@ -13,7 +13,7 @@ const sizes = {
 
 // Camera
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-camera.position.set(0, 1, 2); // Set initial camera position
+camera.position.set(-2, 1, 1); // Set initial camera position
 
 // Renderer
 const renderer = new THREE.WebGLRenderer();
@@ -49,6 +49,9 @@ loader.load(
   }
 );
 
+// Display current camera coordinates
+const coordinatesElement = document.getElementById('coordinates');
+
 // Animation Loop
 const animate = function () {
   requestAnimationFrame(animate);
@@ -58,6 +61,16 @@ const animate = function () {
 
   // Render scene
   renderer.render(scene, camera);
+
+  // Display current camera coordinates
+  const cameraPosition = camera.position;
+  const cameraRotation = camera.rotation;
+  const cameraCoordinatesText = `Camera Coordinates: 
+    X: ${cameraPosition.x.toFixed(2)}, 
+    Y: ${cameraPosition.y.toFixed(2)}, 
+    Z: ${cameraPosition.z.toFixed(2)}`;
+
+  coordinatesElement.textContent = cameraCoordinatesText;
 };
 
 // Start animation loop
