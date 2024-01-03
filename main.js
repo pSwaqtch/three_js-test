@@ -1,6 +1,6 @@
 import * as THREE from 'https://threejs.org/build/three.module.js';
 import "style.css"
-import {OrbitControls} from "./public/OrbitControls.js"
+import {OrbitControls} from "https://pswaqtch.github.io/three_js-test/public/OrbitControls.js"
 
 //Scene
 const scene = new THREE.Scene()
