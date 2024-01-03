@@ -1,5 +1,5 @@
 import * as THREE from "https://threejs.org/build/three.module.js"
-import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
+import { OrbitControls } from "https://cdn.skypack.dev/three@0.120.0/examples/jsm/controls/OrbitControls.js";
 
 //Scene
 const scene = new THREE.Scene()
