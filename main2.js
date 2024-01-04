@@ -51,8 +51,38 @@ loader.load(
   }
 );
 
+// ...
+
 // Display current camera coordinates
 const coordinatesElement = document.getElementById('coordinates');
+const pointCoordinatesElement = document.getElementById('point-coordinates');
+
+// Event listener for mouse click
+canvas.addEventListener('mousedown', onMouseDown);
+
+function onMouseDown(event) {
+  // Calculate the mouse coordinates in normalized device coordinates
+  const mouse = new THREE.Vector2();
+  mouse.x = (event.clientX / sizes.width) * 2 - 1;
+  mouse.y = -(event.clientY / sizes.height) * 2 + 1;
+
+  // Raycasting to find the intersection point
+  const raycaster = new THREE.Raycaster();
+  raycaster.setFromCamera(mouse, camera);
+
+  const intersects = raycaster.intersectObjects(scene.children, true);
+
+  if (intersects.length > 0) {
+    // Display the coordinates of the clicked point
+    const clickedPoint = intersects[0].point;
+    const clickedPointCoordinatesText = `Clicked Point Coordinates: 
+      X: ${clickedPoint.x.toFixed(2)}, 
+      Y: ${clickedPoint.y.toFixed(2)}, 
+      Z: ${clickedPoint.z.toFixed(2)}`;
+
+    pointCoordinatesElement.textContent = clickedPointCoordinatesText;
+  }
+}
 
 // Animation Loop
 const animate = function () {
@@ -62,7 +92,7 @@ const animate = function () {
   controls.update();
 
   // Render scene
-  renderer.render(scene,camera)
+  renderer.render(scene, camera);
 
   // Display current camera coordinates
   const cameraPosition = camera.position;
