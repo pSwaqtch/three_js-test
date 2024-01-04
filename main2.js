@@ -1,5 +1,5 @@
-import * as THREE from "https://threejs.org/build/three.module.js";
-import { OrbitControls } from "https://cdn.skypack.dev/three@0.120.0/examples/jsm/controls/OrbitControls.js";
+import * as THREE from "three";
+import { OrbitControls } from "/node_modules/three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "/node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
 // Scene
