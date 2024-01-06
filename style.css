@@ -4,29 +4,70 @@
   box-sizing: border-box;
 }
 
-body,html{
+body, html {
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
 .text {
   display: flex;
+  flex-direction: column; /* Change to column for smaller devices */
   justify-content: space-between;
   align-items: flex-start;
   color: white;
   font-family: Arial, sans-serif;
   font-size: 16px;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 0, 0, 0.5);
   border-radius: 5px;
   position: absolute;
-  top: 10px;
 }
 
 #coordinates {
-  left: 10px;
+  top: 10px;
+  right: 10px;
 }
 
 #point-coordinates {
+  bottom: 10px;
   right: 10px;
+}
+
+#hover-cube {
+  top: 10px;
+  left: 10px;
+}
+
+#clicked-cube {
+  bottom: 10px;
+  left: 10px;
+}
+
+/* Media Query for smaller devices */
+@media screen and (max-width: 600px) {
+  .text {
+    font-size: 14px; /* Adjust font size for smaller devices */
+    padding: 8px; /* Adjust padding for smaller devices */
+  }
+
+  /* Adjust positions for smaller devices */
+  #coordinates {
+    top: 5px;
+    right: 5px;
+  }
+
+  #point-coordinates {
+    bottom: 5px;
+    right: 5x;
+  }
+
+  #hover-cube {
+    top: 37px;
+    left: 15px;
+  }
+
+  #clicked-cube {
+    bottom: 5px;
+    left: 5px;
+  }
 }
