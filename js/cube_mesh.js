@@ -5,7 +5,6 @@ let camera, scene, renderer;
 let controls;
 
 const cubes = [];
-
 init();
 
 // Mouse move event listener for hover
@@ -13,6 +12,18 @@ window.addEventListener("mousemove", handleMouseMove);
 
 // Mouse click event listener
 window.addEventListener("click", handleMouseClick);
+
+// Display current camera coordinates
+const coordinatesElement = document.getElementById('hover-cube');
+
+// Display Hovered Cube Coordinates 
+const coordinatesHover = document.getElementById('clicked-cube');
+
+// Display Clicked Cube Coordinates 
+const coordinatesClick = document.getElementById('coordinates');
+
+const coordinatesPoint = document.getElementById('point-coordinates');
+coordinatesPoint.textContent = `Hello`;
 
 animate();
 
@@ -31,12 +42,14 @@ function handleMouseMove(event) {
 
   if (hoveredCube && !hoveredCube.isClicked) {
     hoveredCube.material.color.set(0xcccccc);
+    hoveredCubeCoordinates();
   }
 
   hoveredCube = intersects.length > 0 ? intersects[0].object : null;
 
   if (hoveredCube && !hoveredCube.isClicked) {
     hoveredCube.material.color.set('#ff0000');
+    hoveredCubeCoordinates();
   }
 }
 
@@ -52,6 +65,7 @@ function handleMouseClick(event) {
     const selectedCube = intersects[0].object;
     selectedCube.material.color.set('#ff0000');
     selectedCube.isClicked = true;
+    clickedCubeCoordinates();
     // Perform additional game logic based on the clicked cube
   }
 }
@@ -95,6 +109,39 @@ function init() {
   scene.add(axesHelper);
 
 }
+function hoveredCubeCoordinates() {
+  if (hoveredCube) {
+    const hoveredCubePosition = hoveredCube.position;
+    const hoveredCubeCoordinatesText = `Hovered Cube Coordinates: 
+      X: ${hoveredCubePosition.x.toFixed(2)/100}, 
+      Y: ${hoveredCubePosition.y.toFixed(2)/100}, 
+      Z: ${hoveredCubePosition.z.toFixed(2)/100}`;
+  
+    coordinatesHover.textContent = hoveredCubeCoordinatesText;
+  }
+}
+
+function clickedCubeCoordinates() {
+  if (hoveredCube && hoveredCube.isClicked) {
+    const clickedCubePosition = hoveredCube.position;
+    const clickedCubeCoordinatesText = `Clicked Cube Coordinates: 
+      X: ${clickedCubePosition.x.toFixed(2)/100}, 
+      Y: ${clickedCubePosition.y.toFixed(2)/100}, 
+      Z: ${clickedCubePosition.z.toFixed(2)/100}`;
+  
+    coordinatesClick.textContent = clickedCubeCoordinatesText;
+  }
+}
+
+function cameraCoordinates() {
+  const cameraPosition = camera.position;
+  const cameraCoordinatesText = `Camera Coordinates: 
+    X: ${cameraPosition.x.toFixed(2)}, 
+    Y: ${cameraPosition.y.toFixed(2)}, 
+    Z: ${cameraPosition.z.toFixed(2)}`;
+
+  coordinatesElement.textContent = cameraCoordinatesText;
+}
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -106,6 +153,7 @@ function onWindowResize() {
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
+  cameraCoordinates();
   render();
 }
 
