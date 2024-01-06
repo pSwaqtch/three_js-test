@@ -7,7 +7,55 @@ let controls;
 const cubes = [];
 
 init();
+
+// Mouse move event listener for hover
+window.addEventListener("mousemove", handleMouseMove);
+
+// Mouse click event listener
+window.addEventListener("click", handleMouseClick);
+
 animate();
+
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+let hoveredCube = null;
+
+function handleMouseMove(event) {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+
+  const intersects = raycaster.intersectObjects(cubes);
+
+  if (hoveredCube && !hoveredCube.isClicked) {
+    hoveredCube.material.color.set(0xcccccc);
+  }
+
+  hoveredCube = intersects.length > 0 ? intersects[0].object : null;
+
+  if (hoveredCube && !hoveredCube.isClicked) {
+    hoveredCube.material.color.set('#ff0000');
+  }
+}
+
+function handleMouseClick(event) {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+
+  const intersects = raycaster.intersectObjects(cubes);
+
+  if (intersects.length > 0) {
+    const selectedCube = intersects[0].object;
+    selectedCube.material.color.set('#ff0000');
+    selectedCube.isClicked = true;
+    // Perform additional game logic based on the clicked cube
+  }
+}
+
 
 function init() {
   camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
@@ -19,6 +67,7 @@ function init() {
     const cubeGeometry = new THREE.BoxGeometry(150, 150, 150);
     // const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.7 });
     const cubeMaterial = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff, transparent: true, opacity: 0.7 });
+    // const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xcccccc, transparent: true, opacity: 0.7 });
     const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
     const gridX = (i % 4) * 200 - 300; //red
