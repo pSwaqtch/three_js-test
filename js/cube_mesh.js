@@ -14,13 +14,13 @@ window.addEventListener("mousemove", handleMouseMove);
 window.addEventListener("click", handleMouseClick);
 
 // Display current camera coordinates
-const coordinatesElement = document.getElementById('hover-cube');
+const coordinatesClick = document.getElementById('camera-coordinates');
 
 // Display Hovered Cube Coordinates 
-const coordinatesHover = document.getElementById('clicked-cube');
+const coordinatesElement = document.getElementById('hover-cube');
 
 // Display Clicked Cube Coordinates 
-const coordinatesClick = document.getElementById('coordinates');
+const coordinatesHover = document.getElementById('clicked-cube');
 
 const coordinatesPoint = document.getElementById('point-coordinates');
 coordinatesPoint.textContent = `Hello`;
@@ -113,9 +113,9 @@ function hoveredCubeCoordinates() {
   if (hoveredCube) {
     const hoveredCubePosition = hoveredCube.position;
     const hoveredCubeCoordinatesText = `Hovered Cube Coordinates: 
-      X: ${hoveredCubePosition.x.toFixed(2)/100}, 
-      Y: ${hoveredCubePosition.y.toFixed(2)/100}, 
-      Z: ${hoveredCubePosition.z.toFixed(2)/100}`;
+      Y: ${((hoveredCubePosition.y.toFixed(2)/100)+3)/2}, 
+      X: ${(3-(hoveredCubePosition.x.toFixed(2)/100))/2}, 
+      Z: ${(3-(hoveredCubePosition.z.toFixed(2)/100))/2}`;
   
     coordinatesHover.textContent = hoveredCubeCoordinatesText;
   }
@@ -125,9 +125,9 @@ function clickedCubeCoordinates() {
   if (hoveredCube && hoveredCube.isClicked) {
     const clickedCubePosition = hoveredCube.position;
     const clickedCubeCoordinatesText = `Clicked Cube Coordinates: 
-      X: ${clickedCubePosition.x.toFixed(2)/100}, 
-      Y: ${clickedCubePosition.y.toFixed(2)/100}, 
-      Z: ${clickedCubePosition.z.toFixed(2)/100}`;
+      Y: ${((clickedCubePosition.y.toFixed(2)/100)+3)/2}, 
+      X: ${(3-(clickedCubePosition.x.toFixed(2)/100))/2}, 
+      Z: ${(3-(clickedCubePosition.z.toFixed(2)/100))/2}`;
   
     coordinatesClick.textContent = clickedCubeCoordinatesText;
   }
