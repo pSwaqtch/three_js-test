@@ -25,6 +25,23 @@ const coordinatesClick = document.getElementById('clicked-cube');
 const coordinatesPoint = document.getElementById('point-coordinates');
 coordinatesPoint.textContent = `Hello`;
 
+document.addEventListener("DOMContentLoaded", function () {
+  for (let table = 1; table <= 4; table++) {
+    const ticTacToeGrid = document.getElementById("ticTacToeGrid" + table);
+
+    for (let i = 1; i <= 4; i++) {
+      for (let j = 1; j <= 4; j++) {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.setAttribute("data-table", table);
+        cell.setAttribute("data-row", i);
+        cell.setAttribute("data-column", j);
+        ticTacToeGrid.appendChild(cell);
+      }
+    }
+  }
+});
+
 animate();
 
 
@@ -113,10 +130,10 @@ function hoveredCubeCoordinates() {
   if (hoveredCube) {
     const hoveredCubePosition = hoveredCube.position;
     const hoveredCubeCoordinatesText = `Hovered Cube Coordinates: 
-      Layer: ${((hoveredCubePosition.y.toFixed(2)/100)+3)/2}, 
-      Row: ${(3+(hoveredCubePosition.x.toFixed(2)/100))/2}, 
+      Layer: ${((hoveredCubePosition.y.toFixed(2)/100)+3)/2},
+      Row: ${(3+(hoveredCubePosition.x.toFixed(2)/100))/2},
       Col: ${(3+(hoveredCubePosition.z.toFixed(2)/100))/2}`;
-  
+
     coordinatesHover.textContent = hoveredCubeCoordinatesText;
   }
 }
@@ -125,10 +142,10 @@ function clickedCubeCoordinates() {
   if (hoveredCube && hoveredCube.isClicked) {
     const clickedCubePosition = hoveredCube.position;
     const clickedCubeCoordinatesText = `Clicked Cube Coordinates: 
-      Layer: ${((clickedCubePosition.y.toFixed(2)/100)+3)/2}, 
-      Row: ${(3+(clickedCubePosition.x.toFixed(2)/100))/2}, 
+      Layer: ${((clickedCubePosition.y.toFixed(2)/100)+3)/2},
+      Row: ${(3+(clickedCubePosition.x.toFixed(2)/100))/2},
       Col: ${(3+(clickedCubePosition.z.toFixed(2)/100))/2}`;
-  
+
     coordinatesClick.textContent = clickedCubeCoordinatesText;
   }
 }
@@ -136,8 +153,8 @@ function clickedCubeCoordinates() {
 function cameraCoordinates() {
   const cameraPosition = camera.position;
   const cameraCoordinatesText = `Camera Coordinates: 
-    X: ${cameraPosition.x.toFixed(2)}, 
-    Y: ${cameraPosition.y.toFixed(2)}, 
+    X: ${cameraPosition.x.toFixed(2)},
+    Y: ${cameraPosition.y.toFixed(2)},
     Z: ${cameraPosition.z.toFixed(2)}`;
 
   coordinatesElement.textContent = cameraCoordinatesText;

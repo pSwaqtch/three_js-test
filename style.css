@@ -21,3 +21,55 @@ body, html {
 #point-coordinates { bottom: 10px; right: 10px; }
 #hover-cube { top: 10px; left: 10px; }
 #clicked-cube { bottom: 10px; left: 10px; }
+
+.tables {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    width: auto;
+    padding: 2vh;
+    margin: 12vh 2vh;
+    border: 3px solid #0ff;
+    border-radius: 5px;
+}
+
+.tic-tac-toe {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2vh;
+    margin: auto;
+}
+
+.grid {
+    border: 0.2rem solid #f00;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 4px;
+    height: 180px;
+    width: 150px;
+    margin: auto;
+    padding: 6px;
+}
+
+.cell {
+  width: 27px;
+  height: 27px;
+  border: 3px solid #0ff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.label {
+  border: 3px solid #f00;
+  font-size: 1rem;
+  width: 95%;
+  color: white;
+}
