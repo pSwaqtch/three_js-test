@@ -14,13 +14,13 @@ window.addEventListener("mousemove", handleMouseMove);
 window.addEventListener("click", handleMouseClick);
 
 // Display current camera coordinates
-const coordinatesClick = document.getElementById('camera-coordinates');
+const coordinatesElement = document.getElementById('camera-coordinates');
 
 // Display Hovered Cube Coordinates 
-const coordinatesElement = document.getElementById('hover-cube');
+const coordinatesHover = document.getElementById('hover-cube');
 
 // Display Clicked Cube Coordinates 
-const coordinatesHover = document.getElementById('clicked-cube');
+const coordinatesClick = document.getElementById('clicked-cube');
 
 const coordinatesPoint = document.getElementById('point-coordinates');
 coordinatesPoint.textContent = `Hello`;

@@ -9,13 +9,15 @@
 </head>
 
 <body>  
-    <div id="coordinates" class="text"></div>
-    <div id="point-coordinates" class="text"></div>
-    <div id="hover-cube" class="text"></div>
-    <div id="clicked-cube" class="text"></div>
+    <div class="text-container">
+        <div id="camera-coordinates" class="text"></div>
+        <div id="hover-cube" class="text"><p>Hovered Cube Coordinates:</p></div>
+        <div id="clicked-cube" class="text"><p>Clicked Cube Coordinates:</p></div>
+        <div id="point-coordinates" class="text"></div>
+    </div>
     <canvas class="webgl"></canvas>
-    
     <script type="module" src="js/cube_mesh.js"></script>
     <script></script>
 </body>
+
 </html>
