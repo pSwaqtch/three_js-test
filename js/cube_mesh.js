@@ -113,9 +113,9 @@ function hoveredCubeCoordinates() {
   if (hoveredCube) {
     const hoveredCubePosition = hoveredCube.position;
     const hoveredCubeCoordinatesText = `Hovered Cube Coordinates: 
-      Y: ${((hoveredCubePosition.y.toFixed(2)/100)+3)/2}, 
-      X: ${(3-(hoveredCubePosition.x.toFixed(2)/100))/2}, 
-      Z: ${(3-(hoveredCubePosition.z.toFixed(2)/100))/2}`;
+      Layer: ${((hoveredCubePosition.y.toFixed(2)/100)+3)/2}, 
+      Row: ${(3+(hoveredCubePosition.x.toFixed(2)/100))/2}, 
+      Col: ${(3+(hoveredCubePosition.z.toFixed(2)/100))/2}`;
   
     coordinatesHover.textContent = hoveredCubeCoordinatesText;
   }
@@ -125,9 +125,9 @@ function clickedCubeCoordinates() {
   if (hoveredCube && hoveredCube.isClicked) {
     const clickedCubePosition = hoveredCube.position;
     const clickedCubeCoordinatesText = `Clicked Cube Coordinates: 
-      Y: ${((clickedCubePosition.y.toFixed(2)/100)+3)/2}, 
-      X: ${(3-(clickedCubePosition.x.toFixed(2)/100))/2}, 
-      Z: ${(3-(clickedCubePosition.z.toFixed(2)/100))/2}`;
+      Layer: ${((clickedCubePosition.y.toFixed(2)/100)+3)/2}, 
+      Row: ${(3+(clickedCubePosition.x.toFixed(2)/100))/2}, 
+      Col: ${(3+(clickedCubePosition.z.toFixed(2)/100))/2}`;
   
     coordinatesClick.textContent = clickedCubeCoordinatesText;
   }
