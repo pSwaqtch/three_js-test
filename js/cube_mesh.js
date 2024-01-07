@@ -5,6 +5,7 @@ let camera, scene, renderer;
 let controls;
 
 const cubes = [];
+const ticTacToeData = createRandomArray(4,4,4);
 init();
 
 // Mouse move event listener for hover
@@ -23,19 +24,24 @@ const coordinatesHover = document.getElementById('hover-cube');
 const coordinatesClick = document.getElementById('clicked-cube');
 
 const coordinatesPoint = document.getElementById('point-coordinates');
-coordinatesPoint.textContent = `Hello`;
 
 document.addEventListener("DOMContentLoaded", function () {
-  for (let table = 1; table <= 4; table++) {
-    const ticTacToeGrid = document.getElementById("ticTacToeGrid" + table);
+  // Create a 3D 4x4x4 char array and fill it with random 'X' and 'O'
 
-    for (let i = 1; i <= 4; i++) {
-      for (let j = 1; j <= 4; j++) {
+  for (let label = 1; label <= 4; label++) {
+    const ticTacToeGrid = document.getElementById("ticTacToeGrid" + label);
+
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
         const cell = document.createElement("div");
         cell.className = "cell";
-        cell.setAttribute("data-table", table);
+        cell.setAttribute("data-layer", label-1);
         cell.setAttribute("data-row", i);
         cell.setAttribute("data-column", j);
+
+        // Set the content of each cell based on the data in the array
+        cell.textContent = ticTacToeData[label - 1][i][j];
+
         ticTacToeGrid.appendChild(cell);
       }
     }
@@ -45,9 +51,30 @@ document.addEventListener("DOMContentLoaded", function () {
 animate();
 
 
+
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 let hoveredCube = null;
+
+// Function to create a 3D array filled with random 'X' and 'O'
+function createRandomArray(depth, rows, columns) {
+  const array = [];
+  for (let d = 0; d < depth; d++) {
+    const layer = [];
+    for (let i = 0; i < rows; i++) {
+      const row = [];
+      for (let j = 0; j < columns; j++) {
+        // Randomly choose 'X' or 'O'
+        // const value = Math.random() < 0.5 ? 'X' : 'O';
+        const value = ' ';
+        row.push(value);
+      }
+      layer.push(row);
+    }
+    array.push(layer);
+  }
+  return array;
+}
 
 function handleMouseMove(event) {
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -83,7 +110,30 @@ function handleMouseClick(event) {
     selectedCube.material.color.set('#ff0000');
     selectedCube.isClicked = true;
     clickedCubeCoordinates();
+
     // Perform additional game logic based on the clicked cube
+    const selectedCubePosition = selectedCube.position ;
+    const layer = ((selectedCubePosition.y/100)+3)/2;
+    const row = (3+(selectedCubePosition.x/100))/2;
+    const col = (3+(selectedCubePosition.z/100))/2;
+
+    ticTacToeData[layer][row][col] = 'X';
+    
+    // Find the corresponding div based on the data attributes
+    const targetDiv = document.querySelector(`.cell[data-layer="${layer}"][data-row="${row}"][data-column="${col}"]`);
+
+    // Check if the div is found and then change its border color
+    if (targetDiv) {
+      targetDiv.style.borderColor = '#ff0000'; // Set the border color to red
+      targetDiv.textContent = ticTacToeData[layer][row][col];
+    }
+    const coordinatesPointText = `Marked Coordinates: 
+      X: ${layer},
+      Y: ${row},
+      Z: ${col}`;
+      // console.log(ticTacToeData);
+
+    coordinatesPoint.textContent = coordinatesPointText;
   }
 }
 
@@ -130,9 +180,9 @@ function hoveredCubeCoordinates() {
   if (hoveredCube) {
     const hoveredCubePosition = hoveredCube.position;
     const hoveredCubeCoordinatesText = `Hovered Cube Coordinates: 
-      Layer: ${((hoveredCubePosition.y.toFixed(2)/100)+3)/2},
-      Row: ${(3+(hoveredCubePosition.x.toFixed(2)/100))/2},
-      Col: ${(3+(hoveredCubePosition.z.toFixed(2)/100))/2}`;
+      Layer: ${((hoveredCubePosition.y/100)+3)/2},
+      Row: ${(3+(hoveredCubePosition.x/100))/2},
+      Col: ${(3+(hoveredCubePosition.z/100))/2}`;
 
     coordinatesHover.textContent = hoveredCubeCoordinatesText;
   }
@@ -142,9 +192,9 @@ function clickedCubeCoordinates() {
   if (hoveredCube && hoveredCube.isClicked) {
     const clickedCubePosition = hoveredCube.position;
     const clickedCubeCoordinatesText = `Clicked Cube Coordinates: 
-      Layer: ${((clickedCubePosition.y.toFixed(2)/100)+3)/2},
-      Row: ${(3+(clickedCubePosition.x.toFixed(2)/100))/2},
-      Col: ${(3+(clickedCubePosition.z.toFixed(2)/100))/2}`;
+      Layer: ${((clickedCubePosition.y/100)+3)/2},
+      Row: ${(3+(clickedCubePosition.x/100))/2},
+      Col: ${(3+(clickedCubePosition.z/100))/2}`;
 
     coordinatesClick.textContent = clickedCubeCoordinatesText;
   }
