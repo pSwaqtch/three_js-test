@@ -21,7 +21,7 @@ renderer.setPixelRatio(2);
 const fontLoader = new FontLoader();
 fontLoader.load('Courier.json', (font) => {
   // Create text geometry
-  const textGeometry = new TextGeometry('O', {
+  const textGeometry = new TextGeometry('X', {
     font: font,
     size: 1,
     height: 0.1,
@@ -73,7 +73,7 @@ fontLoader.load('Courier.json', (font) => {
     controls.update();  
 
     // Rotate the text mesh
-    // pivotGroup.rotation.y += 0.05;
+    pivotGroup.rotation.y += 0.05;
 
     // Render the scene
     renderer.render(scene, camera);
