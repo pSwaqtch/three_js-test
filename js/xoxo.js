@@ -21,7 +21,7 @@ renderer.setPixelRatio(2);
 const fontLoader = new FontLoader();
 fontLoader.load('Courier.json', (font) => {
   // Create text geometry
-  const textGeometry = new TextGeometry('X', {
+  const textGeometry = new TextGeometry('O', {
     font: font,
     size: 1,
     height: 0.1,
