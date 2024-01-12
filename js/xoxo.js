@@ -11,17 +11,17 @@ scene.background = new THREE.Color(0x111111); // Background color
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 1;
 
-//renderer
+// Renderer
 const canvas = document.querySelector('.webgl');
-const renderer = new THREE.WebGLRenderer({canvas});
+const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(2);
+renderer.setPixelRatio(window.devicePixelRatio);
 
 // Load a font
 const fontLoader = new FontLoader();
-fontLoader.load('Courier.json', (font) => {
-  // Create text geometry
-  const textGeometry = new TextGeometry('X', {
+
+const createTextGeometry = (text, font) => {
+  return new TextGeometry(text, {
     font: font,
     size: 1,
     height: 0.1,
@@ -32,19 +32,34 @@ fontLoader.load('Courier.json', (font) => {
     bevelOffset: 0,
     bevelSegments: 5,
   });
+};
+
+fontLoader.load('Courier.json', (font) => {
+  // Create text geometries
+  const textGeometryX = createTextGeometry('X', font);
+  const textGeometryO = createTextGeometry('O', font);
 
   // Create Phong material
   const material = new THREE.MeshPhongMaterial({ color: 0x00ffff, specular: 0x555555, shininess: 30 });
 
-  // Create mesh
-  const textMesh = new THREE.Mesh(textGeometry, material);
-  scene.add(textMesh);
+  // Create meshes
+  const textMeshX = new THREE.Mesh(textGeometryX, material);
+  const textMeshO = new THREE.Mesh(textGeometryO, material);
 
-  textGeometry.center();
+  // Position the meshes
+  textMeshX.position.y = -0.5; // Lower position for "X"
+  textMeshO.position.y = 0.5; // Higher position for "O"
+
+  scene.add(textMeshX);
+  scene.add(textMeshO);
+
+  textGeometryX.center();
+  textGeometryO.center();
 
   const pivotGroup = new THREE.Group();
   scene.add(pivotGroup);
-  pivotGroup.add(textMesh);
+  pivotGroup.add(textMeshX);
+  pivotGroup.add(textMeshO);
 
   // Add lights
   const ambientLight = new THREE.AmbientLight(0x404040); // Ambient light
@@ -52,7 +67,7 @@ fontLoader.load('Courier.json', (font) => {
   directionalLight.position.set(10, 10, 10).normalize();
   scene.add(ambientLight, directionalLight);
 
-  // controls
+  // Controls
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.enablePan = false;
@@ -61,16 +76,16 @@ fontLoader.load('Courier.json', (font) => {
   controls.autoRotateSpeed = 0;
 
   const axesHelper = new THREE.AxesHelper(5000);
-  const axesHelperi = new THREE.AxesHelper(-5000);
+  const axesHelperNegative = new THREE.AxesHelper(-5000);
   scene.add(axesHelper);
-  scene.add(axesHelperi);
+  scene.add(axesHelperNegative);
 
   // Animation
   const animate = () => {
     requestAnimationFrame(animate);
 
     // Update controls
-    controls.update();  
+    controls.update();
 
     // Rotate the text mesh
     pivotGroup.rotation.y += 0.05;
@@ -92,5 +107,3 @@ window.addEventListener('resize', () => {
   // Update renderer size
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
-
-
